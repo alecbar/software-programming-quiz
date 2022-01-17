@@ -24,7 +24,7 @@ jobs:
 
 
     - name: Deploy to Stack
-      uses: aws-actions/aws-cloudformation-github-deploy
+      uses: aws-actions/aws-cloudformation-github-deploy@master
       with:
         name: software-programming-quiz-stack
         template: cloudformation/resources.yaml
