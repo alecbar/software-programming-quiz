@@ -20,7 +20,7 @@ Resources:
         S3Key: send-email-lambda.zip
 
 
-  SendEmailLambda:
+  CreateUserLambda:
     Type:  AWS::Lambda::Function
     Properties: 
       FunctionName: create-user-lambda
