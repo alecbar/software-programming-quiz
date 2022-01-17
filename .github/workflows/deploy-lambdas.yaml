@@ -6,6 +6,8 @@ on:
     branches:
     - main
 
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,3 +25,5 @@ jobs:
     - name: Zip files
       run: |
         ls -la
+        zip -r lambdas/send-email-lambda.zip lambdas/send-email-lambda/
+        ls lambdas
