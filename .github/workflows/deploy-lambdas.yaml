@@ -26,8 +26,13 @@ jobs:
       run: |
         cd lambdas/send-email-lambda
         zip ../send-email-lambda.zip lambda_function.py
+        cd ../../
+        cd lambdas/create-user-lambda
+        zip ../create-user-lambda.zip lambda_function.py
 
     - name: Deploy to S3 and update source
       run: |
         aws s3 cp lambdas/send-email-lambda.zip s3://software-programming-quiz-lambda-bucket
         aws lambda update-function-code --function-name send-email-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key send-email-lambda.zip
+        aws s3 cp lambdas/create-user-lambda.zip s3://software-programming-quiz-lambda-bucket
+        aws lambda update-function-code --function-name create-user-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key create-user-lambda.zip
