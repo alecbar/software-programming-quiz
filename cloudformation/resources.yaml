@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Deploy services to AWS'
+
+Resources:
+
+  LambdaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: software-programming-quiz-lambda-bucket
+
+  SendEmailLambda:
+    Type:  AWS::Lambda::Function
+    Properties: 
+      Runtime: python3.9
+      Role: arn:aws:iam::185080013142:role/lambda-role
+      Handler: lambda_function.lambda_handler
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+            return None
+
