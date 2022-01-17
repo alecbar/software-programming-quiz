@@ -3,6 +3,8 @@ name: Deploy Cloudformation
 
 on:
   push:
+    paths:
+    - cloudformation/resources.yaml
     branches:
     - main
 
