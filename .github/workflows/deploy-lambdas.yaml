@@ -24,7 +24,7 @@ jobs:
 
     - name: Zip files
       run: |
-        zip -r lambdas/send-email-lambda.zip lambdas/send-email-lambda/
+        zip lambdas/send-email-lambda.zip lambdas/send-email-lambda/lambda_function.py
 
     - name: Deploy to S3
       run: aws s3 cp lambdas/send-email-lambda.zip s3://software-programming-quiz-lambda-bucket
