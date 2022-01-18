@@ -30,13 +30,14 @@ Resources:
         ZipFile: |
           def lambda_handler(event, context):
             return None
-            
+
   UserPool:
     Type: "AWS::Cognito::UserPool"
     Properties:
       UserPoolName: software-programming-quiz-users
       AutoVerifiedAttributes:
         - email
+      UsernameAttributes: email
       Schema:
         - Name: name
           AttributeDataType: String
