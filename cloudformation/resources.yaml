@@ -37,7 +37,8 @@ Resources:
       UserPoolName: software-programming-quiz-users
       AutoVerifiedAttributes:
         - email
-      UsernameAttributes: email
+      UsernameAttributes: 
+        - email
       Schema:
         - Name: name
           AttributeDataType: String
