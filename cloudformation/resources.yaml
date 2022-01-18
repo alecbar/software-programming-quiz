@@ -30,8 +30,8 @@ Resources:
         ZipFile: |
           def lambda_handler(event, context):
             return None
-
-   UserPool:
+            
+  UserPool:
     Type: "AWS::Cognito::UserPool"
     Properties:
       UserPoolName: software-programming-quiz-users
