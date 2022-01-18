@@ -19,7 +19,6 @@ Resources:
         S3Bucket: software-programming-quiz-lambda-bucket
         S3Key: send-email-lambda.zip
 
-
   CreateUserLambda:
     Type:  AWS::Lambda::Function
     Properties: 
@@ -31,3 +30,23 @@ Resources:
         ZipFile: |
           def lambda_handler(event, context):
             return None
+
+   UserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      UserPoolName: software-programming-quiz-users
+      AutoVerifiedAttributes:
+        - email
+      Schema:
+        - Name: name
+          AttributeDataType: String
+          Mutable: true
+          Required: true
+        - Name: email
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+        - Name: organization
+          AttributeDataType: String
+          Mutable: false
+          Required: false
