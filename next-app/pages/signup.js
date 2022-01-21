@@ -1,8 +1,20 @@
 import Head from 'next/head'
+import * as React from 'react'
 import Image from 'next/image'
 import styles from '../styles/Signup.module.css'
+import axios from 'axios'
 
 export default function Home() {
+    const [name, setName] = React.useState('enter name')
+    const [lastName, setLastName] = React.useState('enter last name')
+    const [email, setEmail] = React.useState('enter email address')
+
+    const sendDataToApi = async () => {
+       let response = await axios.post('/api/create-user', {name, lastName, email})
+    }
+
+
+ // create a form on this page, and when complete (on button click) send data to the 'api' rout
   return (
     <div className={styles.container}>
       <Head>
@@ -17,8 +29,12 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          This is where the user will sign up for a profile by submitting their information. 
+          This is where the user will sign up for a profile by submitting their information.
+
         </p>
+        <input value={name} onChange={e=>setName(e.target.value)} />
+        <input value={lastName} onChange={e=>setLastName(e.target.value)} />
+        <input value={email} onChange={e=>setEmail(e.target.value)} />
 
       </main>
 
