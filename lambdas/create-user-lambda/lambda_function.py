@@ -5,18 +5,18 @@ def lambda_handler(event, context):
     """
 
     # Setup cognito client
-    client = boto3.resource('cognito')
+    client = boto3.client('cognito-idp')
 
     # Get user properties from event
-    first_name, last_name, email, company = event["firstName"], event["lastName"], event["email"], event["company"]
+    first_name, last_name, email, organization = event["firstName"], event["lastName"], event["email"], event["organization"]
     
     response = client.admin_create_user(
-        UserPoolId = "",
+        UserPoolId = "us-east-1_mi0MGd08p",
         Username = email,
         UserAttributes = [
             { "Name": "name", "Value": f"{first_name} {last_name}"},
             { "Name": "email", "Value": email},
-            { "Name": "custom:company", "Value": company},
+            { "Name": "custom:organization", "Value": organization},
             { "Name": "email_verified", "Value": "true" }
         ],
         DesiredDeliveryMediums = ['EMAIL']
