@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="max-w">
+      <main className="max-w h-screen">
         <nav className="bg-indigo-100 font-semibold text-indigo-900 flex justify-between">
           <a href="/" className="my-auto p-2">Software Engineering Quiz</a>
           <a href="signup" className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Sign Up</a>
@@ -32,8 +32,8 @@ export default function Home() {
     
       </main>
 
-      <footer className="">
-      
+      <footer className="max-w h-20 bg-indigo-200">
+        <p className="m-auto pt-8 text-center text-sm text-white">Software Engineering Quiz</p>
       </footer>
     </div>
   )
