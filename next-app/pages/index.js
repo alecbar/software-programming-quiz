@@ -13,8 +13,8 @@ export default function Home() {
 
       <main className="max-w">
         <nav className="bg-indigo-100 font-semibold text-indigo-900 flex justify-between">
-          <a className="my-auto p-2">Software Engineering Quiz</a>
-          <button className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Sign Up</button>
+          <a href="/" className="my-auto p-2">Software Engineering Quiz</a>
+          <a href="signup" className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Sign Up</a>
         </nav>
 
         <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome to Software Engineering Quiz</h1>
@@ -27,7 +27,7 @@ export default function Home() {
         <div className="my-20 grid grid-rows-3 text-center ">
           <h2 className="text-center text-2xl text-indigo-900">Get Started</h2>
           <p className="my-2 text-center">Create your profile to start desigining your own quizzes for your candidates.</p>
-          <button className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Sign Up</button>
+          <a href="signup" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Sign Up</a>
         </div>
     
       </main>
