@@ -5,7 +5,7 @@ import styles from '../styles/Signup.module.css'
 import axios from 'axios'
 
 export default function Home() {
-    const [name, setName] = React.useState('enter name')
+    const [firstName, setLastName] = useState('')
     const [lastName, setLastName] = React.useState('enter last name')
     const [email, setEmail] = React.useState('enter email address')
 
