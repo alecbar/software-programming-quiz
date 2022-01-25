@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import * as React from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
