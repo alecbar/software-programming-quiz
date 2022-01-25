@@ -37,7 +37,7 @@ sendDataToApi()
         </p>
         <form onSubmit={submit}>
         <input value={name} onChange={e=>setName(e.target.value)} />
-        <input value={lastName} onChange={e=>setLastName(e.target.value)} />
+        <input value={lastName} placeholder="First Name" onChange={e=>setLastName(e.target.value)} />
         <input value={email} onChange={e=>setEmail(e.target.value)} />
 
       </main>
