@@ -32,6 +32,7 @@ export default function Home() {
           This is where the user will sign up for a profile by submitting their information.
 
         </p>
+        <form onSubmit={submit}>
         <input value={name} onChange={e=>setName(e.target.value)} />
         <input value={lastName} onChange={e=>setLastName(e.target.value)} />
         <input value={email} onChange={e=>setEmail(e.target.value)} />
