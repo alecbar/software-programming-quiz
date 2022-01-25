@@ -12,7 +12,10 @@ export default function Home() {
     const sendDataToApi = async () => {
        let response = await axios.post('/api/create-user', {name, lastName, email})
     }
-
+const submit = (e) => {
+e.preventDefault()
+sendDataToApi()
+}
 
  // create a form on this page, and when complete (on button click) send data to the 'api' rout
   return (
