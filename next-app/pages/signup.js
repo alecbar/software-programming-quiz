@@ -6,10 +6,10 @@ import styles from '../styles/Signup.module.css'
 import axios from 'axios'
 
 export default function Home() {
-    const [firstName, setFirstName] = useState('First Name')
-    const [lastName, setLastName] = React.useState('Last Name')
-    const [email, setEmail] = React.useState('Email')
-    const [company, setCompany] = React.useState('Company Name')
+    const [firstName, setFirstName] = useState('First Name');
+    const [lastName, setLastName] = React.useState('Last Name');
+    const [email, setEmail] = React.useState('Email');
+    const [company, setCompany] = React.useState('Company Name');
     const sendDataToApi = async () => {
        let response = await axios.post('/api/create-user', {firstName, lastName, email, company})
     }
@@ -29,10 +29,10 @@ sendDataToApi()
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Candidate Assessment Quiz
+          Candidate Assessment
         </h1>
         <h3>
-          A comprehensive database of quizzes to choose from.
+          A comprehensive database of quizzes
         </h3>
 
         <p className={styles.description}>
