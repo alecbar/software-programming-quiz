@@ -1,16 +1,17 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import React from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
 
 export default function Home() {
-    const [firstName, setLastName] = useState('')
+    const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = React.useState('enter last name')
     const [email, setEmail] = React.useState('enter email address')
-
+    const [company, setCompany] = React.useState('enter company name')
     const sendDataToApi = async () => {
-       let response = await axios.post('/api/create-user', {name, lastName, email})
+       let response = await axios.post('/api/create-user', {firstName, lastName, company, email})
     }
 const submit = (e) => {
 e.preventDefault()
@@ -36,9 +37,12 @@ sendDataToApi()
 
         </p>
         <form onSubmit={submit}>
-        <input value={name} onChange={e=>setName(e.target.value)} />
-        <input value={lastName} placeholder="First Name" onChange={e=>setLastName(e.target.value)} />
+        <input value={firstName} placeholder="First Name"onChange={e=>setFirstName(e.target.value)} />
+        <input value={lastName} placeholder="Last Name" onChange={e=>setLastName(e.target.value)} />
+        <input value={company} placeholder="Company Name" onChange={e=>setCompany(e.target.value)} />
         <input value={email} onChange={e=>setEmail(e.target.value)} />
+        <button type="submit">submit</button>
+        </form>
 
       </main>
 
