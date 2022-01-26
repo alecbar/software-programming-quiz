@@ -6,12 +6,12 @@ import styles from '../styles/Signup.module.css'
 import axios from 'axios'
 
 export default function Home() {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = React.useState('enter last name')
-    const [email, setEmail] = React.useState('enter email address')
-    const [company, setCompany] = React.useState('enter company name')
+    const [firstName, setFirstName] = useState('First Name')
+    const [lastName, setLastName] = React.useState('Last Name')
+    const [email, setEmail] = React.useState('Email')
+    const [company, setCompany] = React.useState('Company Name')
     const sendDataToApi = async () => {
-       let response = await axios.post('/api/create-user', {firstName, lastName, company, email})
+       let response = await axios.post('/api/create-user', {firstName, lastName, email, company})
     }
 const submit = (e) => {
 e.preventDefault()
@@ -29,18 +29,20 @@ sendDataToApi()
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Sign up page
+          Candidate Assessment Quiz
         </h1>
+        <h3>
+          A comprehensive database of quizzes to choose from.
+        </h3>
 
         <p className={styles.description}>
-          This is where the user will sign up for a profile by submitting their information.
-
+          Register/Login
         </p>
         <form onSubmit={submit}>
         <input value={firstName} placeholder="First Name"onChange={e=>setFirstName(e.target.value)} />
         <input value={lastName} placeholder="Last Name" onChange={e=>setLastName(e.target.value)} />
         <input value={company} placeholder="Company Name" onChange={e=>setCompany(e.target.value)} />
-        <input value={email} onChange={e=>setEmail(e.target.value)} />
+        <input value={email} placeholder="email" onChange={e=>setEmail(e.target.value)} />
         <button type="submit">submit</button>
         </form>
 
