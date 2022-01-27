@@ -7,16 +7,17 @@ import axios from 'axios'
 import { Button } from 'reactstrap';
 
 export default function Home() {
-    const [firstName, setFirstName] = useState('First Name');
-    const [lastName, setLastName] = React.useState('Last Name');
-    const [email, setEmail] = React.useState('Email');
-    const [company, setCompany] = React.useState('Company Name');
-    const sendDataToApi = async () => {
-       let response = await axios.post('/api/create-user', {firstName, lastName, email, company})
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [company, setCompany] = useState('');
+    const [password, setPassword] = useState('');
+    const sendDataToApi = async (data) => {
+       let response = await axios.post('/api/create-user', data)
     }
 const submit = (e) => {
 e.preventDefault()
-sendDataToApi()
+sendDataToApi({firstName, lastName, email, company, password})
 }
 
  // create a form on this page, and when complete (on button click) send data to the 'api' rout
@@ -48,6 +49,9 @@ sendDataToApi()
         <input value={company} placeholder="Company Name" onChange={e=>setCompany(e.target.value)} />
         </div>
         <input value={email} placeholder="email" onChange={e=>setEmail(e.target.value)} />
+        <div>
+        </div>
+        <input value={password} placeholder="password" onChange={e=>setPassword(e.target.value)} />
         <div>
         <button type="submit">submit</button>
         </div>
