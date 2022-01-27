@@ -2,6 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+import Footer from '../components/footer'
+import Navbar from '../components/navbar'
+
 export default function Home() {
   return (
     <div className="w-full">
@@ -12,10 +15,6 @@ export default function Home() {
       </Head>
 
       <main className="max-w h-screen">
-        <nav className="bg-indigo-100 font-semibold text-indigo-900 flex justify-between">
-          <a href="/" className="my-auto p-2">Software Engineering Quiz</a>
-          <a href="signup" className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Sign Up</a>
-        </nav>
 
         <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome to Software Engineering Quiz</h1>
         <div className="my-20 grid grid-rows-3 justify-center text-center text-xl font-light">
@@ -31,10 +30,7 @@ export default function Home() {
         </div>
     
       </main>
-
-      <footer className="max-w h-20 bg-indigo-200">
-        <p className="m-auto pt-8 text-center text-sm text-white">Software Engineering Quiz</p>
-      </footer>
+      
     </div>
   )
 }
