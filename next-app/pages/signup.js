@@ -4,6 +4,7 @@ import {useState} from 'react'
 import Image from 'next/image'
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
+import { Button } from 'reactstrap';
 
 export default function Home() {
     const [firstName, setFirstName] = useState('First Name');
@@ -39,13 +40,18 @@ sendDataToApi()
           Register/Login
         </p>
         <form onSubmit={submit}>
+        <div>
         <input value={firstName} placeholder="First Name"onChange={e=>setFirstName(e.target.value)} />
+        </div>
         <input value={lastName} placeholder="Last Name" onChange={e=>setLastName(e.target.value)} />
+        <div>
         <input value={company} placeholder="Company Name" onChange={e=>setCompany(e.target.value)} />
+        </div>
         <input value={email} placeholder="email" onChange={e=>setEmail(e.target.value)} />
+        <div>
         <button type="submit">submit</button>
+        </div>
         </form>
-
       </main>
 
     </div>
