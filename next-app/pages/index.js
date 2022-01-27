@@ -14,8 +14,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar/>
-
       <main className="max-w h-screen">
 
         <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome to Software Engineering Quiz</h1>
@@ -32,8 +30,7 @@ export default function Home() {
         </div>
     
       </main>
-
-      <Footer/>
+      
     </div>
   )
 }
