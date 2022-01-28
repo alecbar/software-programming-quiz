@@ -4,7 +4,6 @@ import {useState} from 'react'
 import Image from 'next/image'
 import styles from '../styles/Signup.module.css'
 import axios from 'axios'
-import { Button } from 'reactstrap';
 
 export default function Home() {
     const [firstName, setFirstName] = useState('');
