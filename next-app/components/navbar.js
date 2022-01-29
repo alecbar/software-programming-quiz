@@ -1,10 +1,20 @@
-// Navbar
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Navbar = () => {
-    return(
+    const { data: session } = useSession()
+    return (
         <nav className="bg-indigo-100 font-semibold text-indigo-900 flex justify-between">
             <a href="/" className="my-auto p-2">Software Engineering Quiz</a>
-            <a href="signup" className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Sign Up</a>
+            {session &&
+                <div className="py-4">
+                    <a onClick={() => signOut({ callbackUrl: '/' })} className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Logout</a>
+                    <a href="profile" className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Profile</a>
+                </div>
+            }
+            {!session &&
+                <a onClick={() => signIn()} className="text-white font-semibold bg-indigo-600 w-28  m-2 py-2 px-6 rounded-md">Login</a>
+            }
+           
         </nav>
     )
 };
