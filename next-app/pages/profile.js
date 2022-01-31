@@ -1,8 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Profile.module.css'
+import { useSession } from 'next-auth/react'
+import { useState, useEffect } from 'react'
+import { getSession } from 'next-auth/react'
 
-export default function Home() {
+export default function Profile() {
+
+  const { data: session, status } = useSession()
+
   return (
     <div className="w-full">
       <Head>
@@ -13,7 +19,10 @@ export default function Home() {
 
       <main className="max-w h-screen">
 
-        <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome, &quot;Employer&quot;</h1>
+        {
+          session && 
+          <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome, {session.user.name} </h1>
+        }
         
         <div className="my-20 text-center ">
             <a href="new_quiz" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
@@ -37,4 +46,21 @@ export default function Home() {
       
     </div>
   )
+}
+
+
+export async function getServerSideProps(context) {
+  const { res } = context;
+  const session = await getSession(context)
+
+  if (!session) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    return res.end();
+  }
+
+  return {
+    props: { session }
+  }
 }
