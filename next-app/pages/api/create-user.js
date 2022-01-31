@@ -1,7 +1,37 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { Lambda, AWS } from "aws-sdk"
 
 export default (req, res) => {
-console.log("hello from create user route")
-console.log(req.body)
+
+  // Receive request
+  console.log(req.body)
+  const { firstName, lastName, email, company } = req.body
+
+  // Lambda setup
+  const client = new Lambda()
+
+  const payload = {
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+    "organization": company
+  };
+
+  const lambdaParams = {
+    FunctionName: "create-user-lambda",
+    InvocationType: "Event",
+    Payload: JSON.stringify(payload)
+  };
+
+  // Invoke function 
+  client.invoke(lambdaParams, (err, data)=>{
+
+    // Callback
+    if(err){
+      console.log(err)
+    }else{
+      console.log(data)
+    }
+  })
+  
   res.status(200).json({ name: 'John Doe' })
 }
