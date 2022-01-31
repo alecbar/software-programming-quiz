@@ -9,5 +9,6 @@ export default NextAuth({
             issuer: process.env.COGNITO_ISSUER,
         })
     ],
-    debug: true
+    debug: process.env.VERCEL_ENV ? false: true,
+    secret: process.env.NEXTAUTH_SECRET
 })
