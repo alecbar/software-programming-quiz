@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import { signIn } from 'next-auth/react'
 
 export default function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -9,14 +10,18 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
 
+  const [userCreated, setUserCreated] = useState(false);
+
   // TOOD: indicate success/failure to user
   const sendDataToApi = async (data) => {
     let response = await axios.post('/api/create-user', data)
   }
 
+
   const submit = (e) => {
     e.preventDefault()
     sendDataToApi({ firstName, lastName, email, company })
+    setUserCreated(true)
   }
 
   return (
@@ -34,43 +39,60 @@ export default function Signup() {
         </div>
 
         <div className="my-2 grid text-center">
-          <form onSubmit={submit} className="my-6 grid grid-rows-6 text-center">
-            <div className="my-2">
-              <input 
-                value={firstName} 
-                placeholder="First Name" 
-                onChange={e => setFirstName(e.target.value)} 
-                className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
-              />
-            </div>
-            <div className="my-2">
-              <input
-                value={lastName}
-                placeholder="Last Name"
-                onChange={e => setLastName(e.target.value)}
-                className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
-              />
-            </div>
-            <div className="my-2">
-              <input 
-                value={company} 
-                placeholder="Company Name" 
-                onChange={e => setCompany(e.target.value)}
-                className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
-              />
-            </div>
-            <div className="my-2">
-              <input 
-                value={email} 
-                placeholder="Email Address" 
-                onChange={e => setEmail(e.target.value)}
-                className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
-              />
-            </div>
-            <div className="my-2">
-              <button type="submit" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto w-64">Submit</button>
-            </div>
-          </form>
+
+          {
+            userCreated ?
+              <div className="my-6 grid">
+                <div className="flex justify-center items-center text-center h-28 bg-indigo-100 w-64 border-indigo-200 border-2 mx-auto rounded-md">
+                  <p className="text-indigo-500">Your account has been created. Check your email for details and follow the link below to login.</p>
+                </div>
+
+                <button onClick={() => signIn('cognito', {
+                callbackUrl: `${window.location.origin}/profile`
+              })} className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Sign In</button>
+              </div>
+              :
+
+
+              <form onSubmit={submit} className="my-6 grid grid-rows-6 text-center h-96">
+                <div className="my-2">
+                  <input
+                    value={firstName}
+                    placeholder="First Name"
+                    onChange={e => setFirstName(e.target.value)}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
+                  />
+                </div>
+                <div className="my-2">
+                  <input
+                    value={lastName}
+                    placeholder="Last Name"
+                    onChange={e => setLastName(e.target.value)}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
+                  />
+                </div>
+                <div className="my-2">
+                  <input
+                    value={company}
+                    placeholder="Company Name"
+                    onChange={e => setCompany(e.target.value)}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
+                  />
+                </div>
+                <div className="my-2">
+                  <input
+                    value={email}
+                    placeholder="Email Address"
+                    onChange={e => setEmail(e.target.value)}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
+                  />
+                </div>
+                <div className="my-2">
+                  <button type="submit" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto w-64">Submit</button>
+                </div>
+              </form>
+
+          }
         </div>
       </main>
     </div>
