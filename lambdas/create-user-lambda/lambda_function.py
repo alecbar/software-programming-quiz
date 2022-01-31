@@ -1,4 +1,5 @@
 import boto3
+import json
 
 def lambda_handler(event, context):
     """
@@ -23,8 +24,8 @@ def lambda_handler(event, context):
             ],
             DesiredDeliveryMediums = ['EMAIL']
         )
-
-        return response
+        
+        return json.dumps(response)
 
     except Exception:
         return None
