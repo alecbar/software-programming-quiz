@@ -52,3 +52,10 @@ Resources:
           AttributeDataType: String
           Mutable: false
           Required: false
+
+  Database:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBInstanceClass: db.t2.micro
+      DBName: software_quiz
+      PubliclyAccessible: True
