@@ -62,3 +62,4 @@ Resources:
       DBName: software_quiz
       PubliclyAccessible: True
       MasterUsername: admin
+      MasterUserPassword: password1
