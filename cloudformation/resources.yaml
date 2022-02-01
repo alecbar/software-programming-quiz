@@ -63,3 +63,4 @@ Resources:
       PubliclyAccessible: True
       MasterUsername: admin
       MasterUserPassword: password1
+      EngineVersion: 8.0.23
