@@ -61,3 +61,4 @@ Resources:
       Engine: mysql
       DBName: software_quiz
       PubliclyAccessible: True
+      MasterUsername: admin
