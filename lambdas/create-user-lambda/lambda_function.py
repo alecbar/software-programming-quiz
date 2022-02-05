@@ -1,6 +1,7 @@
 import boto3
 import json
 
+
 def lambda_handler(event, context):
     """
     Creates a new user in cognito user pool with provided details from event
