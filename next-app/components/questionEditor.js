@@ -6,8 +6,7 @@ const QuestionEditor = () => {
     const [answersCount, setAnswersCount] = useState(2)
     const [prompt, setPrompt] = useState()
     const [answers, setAnswers] = useState(Array(answersCount).fill(""))
-    console.log(answers)
-    const [correctAnswer, setCorrectAnswer] = useState(0)
+    const [correctAnswer, setCorrectAnswer] = useState()
 
     const questionTypes = {
         "true-false": "True False",
@@ -22,26 +21,27 @@ const QuestionEditor = () => {
     }
 
     // When type changes we want to change the number of answers available
-    useEffect(()=>{
+    useEffect(() => {
         let newCount;
 
-        console.log(type)
-        switch(type) {
+        switch (type) {
             case "true-false":
                 newCount = 2
+                break;
             case "multiple-choice":
                 newCount = 4
+                break;
             case "multiple-selection":
                 newCount = 4
+                break;
         }
 
-        console.log(newCount)
-        if(newCount != answersCount){
+        if (newCount != answersCount) {
             setAnswersCount(newCount)
         }
     }, [type])
 
-    useEffect(()=>{
+    useEffect(() => {
         setAnswers(Array(answersCount).fill(""))
     }, [answersCount])
 
@@ -50,16 +50,23 @@ const QuestionEditor = () => {
         <>
             <div className="m-4 mx-auto">
                 <label className="block text-md">Question Type</label>
-                <select onChange={e => { setType(e.target.value) }} value={type} className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
+                <select
+                    onChange={e => { setType(e.target.value) }}
+                    value={type}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
                     {
                         Object.entries(questionTypes)
-                            .map(([value, name]) => <option value={value}>{name}</option>)
+                            .map(([value, name]) => <option key={value} value={value}>{name}</option>)
                     }
                 </select>
 
                 <label className="block text-md my-2">Question</label>
-                <input className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block" placeholder="Question..." />
-
+                <input
+                    className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder="Question..."
+                    value={prompt}
+                />
                 <div>
                     <label className="block text-md">Answers</label>
                     {
@@ -69,7 +76,7 @@ const QuestionEditor = () => {
                                     className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
                                     key={i}
                                     value={answer}
-                                    onChange={ e => {
+                                    onChange={e => {
                                         updateAnswer(e.target.value, i)
                                     }
                                     }
@@ -79,9 +86,12 @@ const QuestionEditor = () => {
                         })
                     }
                     <label className="block text-md">Select the correct Answer</label>
-                    <select onChange={e => { setType(e.target.value) }} value={type} className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
+                    <select
+                        onChange={e => { setCorrectAnswer(e.target.value) }}
+                        value={correctAnswer}
+                        className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
                         {
-                            answers.map((answer, i) => <option value={i}>{answer}</option>)
+                            answers.map((answer, i) => <option key={i} value={i}>{answer}</option>)
                         }
                     </select>
 
