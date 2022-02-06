@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/react'
+import QuestionEditor from '../../components/questionEditor'
 
 export default function NewQuiz() {
 
@@ -11,6 +12,20 @@ export default function NewQuiz() {
     // if each was a question we could pass in a prop to edit or delete after it exists
     const [displayQuestion, setDisplayQuestion] = useState(false)
 
+
+    // Array of questions in state
+    const [questions, setQuestion] = useState([])
+
+    // Example
+    // {
+    //     "type": "",
+    //     "question": "",
+    //     "answers":[
+            
+    //     ],
+    //     "correctAnswer": 0
+    // }
+
     return (
         <div className="w-full">
             <Head>
@@ -19,33 +34,27 @@ export default function NewQuiz() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="max-w h-screen">
+            <main className="max-w min:h-screen">
 
                 <h1 className="grid text-center text-2xl text-indigo-900 my-2">Create a New Quiz</h1>
 
                 <div className="my-2 text-center ">
 
                     <div className="m-4 w-2/4 mx-auto">
-                        <label className="block text-lg">Quiz Name</label>
+                        <label className="block text-md">Quiz Name</label>
                         <input className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block" placeholder="Enter a name..." />
                     </div>
 
                     <div className="m-4 w-2/4 mx-auto">    
-                        <label className="block text-lg">Question Type</label>
-                        <select className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
-                            <option>True False</option>
-                            <option>Multiple Choice</option>
-                            <option>Multiple Selection</option>
-                        </select>
-                    
-                        <div className="p-4">
-                            <button className="text-lg">Add Question</button>
-                        </div>
+                        <h3 className="my-8 text-lg">Add Questions</h3>
+
+                        <QuestionEditor/>
+
                     </div>
                 </div>
 
 
-                <div className="grid grid-rows text-center mt-12">
+                <div className="grid grid-rows text-center my-12">
                     <h3 className="m-2 text-xl" >Quiz Questions</h3>
 
                     <div className="h-auto my-2 w-2/4 mx-auto" onClick={()=>{setDisplayQuestion(!displayQuestion)}}>
