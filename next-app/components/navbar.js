@@ -11,7 +11,7 @@ const Navbar = () => {
             {session &&
                 <div className="py-4">
                     <button onClick={() => signOut()} className="text-white text-md leading-1 font-semibold bg-indigo-600 py-2 px-4 mx-2 rounded-md">Logout</button>
-                    <Link href="profile">
+                    <Link href="/profile">
                         <a className="text-white text-md leading-1 font-semibold bg-indigo-600 py-2 px-4 mx-2 rounded-md inline-block">Profile</a>
                     </Link>
                 </div>
