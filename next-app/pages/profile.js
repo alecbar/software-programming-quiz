@@ -4,6 +4,7 @@ import styles from '../styles/Profile.module.css'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { getSession } from 'next-auth/react'
+import Link from 'next/link'
 
 export default function Profile() {
 
