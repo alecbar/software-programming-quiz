@@ -94,7 +94,6 @@ const QuestionEditor = () => {
                             answers.map((answer, i) => <option key={i} value={i}>{answer}</option>)
                         }
                     </select>
-
                 </div>
 
                 <div className="p-4">
