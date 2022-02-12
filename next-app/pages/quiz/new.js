@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/react'
 import QuestionEditor from '../../components/questionEditor'
+import QuestionCard from '../../components/questionCard'
 
 export default function NewQuiz() {
 
@@ -15,6 +16,13 @@ export default function NewQuiz() {
 
     // Array of questions in state
     const [questions, setQuestion] = useState([])
+
+    const saveQuestion = (newQuestion) => {
+        
+        const newQuestions = [...questions, newQuestion]
+        console.log(newQuestions)
+        setQuestion(newQuestions)
+    };  
 
     // Example
     // {
@@ -48,7 +56,7 @@ export default function NewQuiz() {
                     <div className="m-4 w-2/4 mx-auto">    
                         <h3 className="my-8 text-lg">Add Questions</h3>
 
-                        <QuestionEditor/>
+                        <QuestionEditor saveQuestionHandler={saveQuestion}/>
 
                     </div>
                 </div>
@@ -57,27 +65,11 @@ export default function NewQuiz() {
                 <div className="grid grid-rows text-center my-12">
                     <h3 className="m-2 text-xl" >Quiz Questions</h3>
 
-                    <div className="h-auto my-2 w-2/4 mx-auto" onClick={()=>{setDisplayQuestion(!displayQuestion)}}>
-                        <div className="h-auto bg-indigo-100 grid grid-cols-8 p-2 gap-1 rounded-t-md">
-                            <div className="col-span-7 text-left">
-                                <h4>Question 1</h4>
-                            </div>
-
-                            <div className="col-span-1 text-right mx-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
-                        {
-                            displayQuestion &&
-                            
-                            <div className="h-44 rounded-b-md border-2 border-indigo-100">
-
-                            </div>
-                        }
-
-                    </div>
+                    {
+                        questions.map((question, i) => {
+                            return (<QuestionCard question={question} key={i} index={i}></QuestionCard>)
+                        })
+                    }
 
                 </div>
 

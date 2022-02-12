@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 
-const QuestionEditor = () => {
+const QuestionEditor = (props) => {
+
+    const { saveQuestionHandler } = props
 
     const [type, setType] = useState("true-false")
     const [answersCount, setAnswersCount] = useState(2)
     const [prompt, setPrompt] = useState("")
     const [answers, setAnswers] = useState(Array(answersCount).fill(""))
     const [answersAdded, setAnswersAdded] = useState(false)
-    const [correctAnswers, setCorrectAnswers] = useState()
+    const [correctAnswers, setCorrectAnswers] = useState([0])
 
     const questionTypes = {
         "true-false": "True False",
@@ -23,7 +25,8 @@ const QuestionEditor = () => {
 
     const updateCorrectAnswers = (e) => {
         let answers = Array.from(e.target.selectedOptions, option => option.value);
-        setCorrectAnswers(answers)
+
+        setCorrectAnswers(answers.map(str => parseInt(str, 10)))
     }
 
 
@@ -49,30 +52,45 @@ const QuestionEditor = () => {
     }, [type])
 
     useEffect(() => {
-        if(type == "true-false"){
+        if (type == "true-false") {
             setAnswers(["True", "False"])
 
-        }else{
+        } else {
             setAnswers(Array(answersCount).fill(""))
         }
     }, [answersCount])
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         // If there are any empty answers in the answers array
         // Then answers still need to be added
         // And we should not show the answer selection
 
         const emptyAnswers = answers.filter(answer => answer == "")
-        
-        if (emptyAnswers.length > 0){
+
+        if (emptyAnswers.length > 0) {
             setAnswersAdded(false)
-        }else{
+        } else {
             setAnswersAdded(true)
         }
 
     }, [answers])
+
+    const saveQuestion = () => {
+
+        const question = {
+            "type": type,
+            "prompt": prompt,
+            "answers": answers,
+            "correctAnswers": correctAnswers
+        }
+        
+        console.log(question)
+
+        saveQuestionHandler(question)
+
+    };
 
     return (
         <>
@@ -103,7 +121,7 @@ const QuestionEditor = () => {
                                 <input
                                     className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
                                     key={i}
-                                    disabled={type == "true-false" ? true : false }
+                                    disabled={type == "true-false" ? true : false}
                                     value={answer}
                                     onChange={e => {
                                         updateAnswers(e.target.value, i)
@@ -114,14 +132,14 @@ const QuestionEditor = () => {
                             )
                         })
                     }
-                    
-                    {   answersAdded &&
+
+                    {answersAdded &&
                         <>
-                            <label className="block text-md">Select the correct {type == "multiple-selection" ? "answers": "answer"}</label>
+                            <label className="block text-md">Select the correct {type == "multiple-selection" ? "answers" : "answer"}</label>
                             <select
-                                multiple={type == "multiple-selection" ? true: false}
+                                multiple={type == "multiple-selection" ? true : false}
                                 onChange={e => { updateCorrectAnswers(e) }}
-                                value={correctAnswers}
+                                value={type == "multiple-selection" ? correctAnswers : correctAnswers[0]}
                                 className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
                                 {
                                     answers.map((answer, i) => <option key={i} value={i}>{answer}</option>)
@@ -132,7 +150,12 @@ const QuestionEditor = () => {
                 </div>
 
                 <div className="p-4">
-                    <button className="float-right text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md">Save</button>
+                    <button
+                        className="float-right text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
+                        onClick={() => saveQuestion()}
+                    >
+                        Save
+                    </button>
                 </div>
             </div>
         </>
