@@ -42,7 +42,13 @@ const QuestionEditor = () => {
     }, [type])
 
     useEffect(() => {
-        setAnswers(Array(answersCount).fill(""))
+
+        if(type == "true-false"){
+            setAnswers(["True", "False"])
+
+        }else{
+            setAnswers(Array(answersCount).fill(""))
+        }
     }, [answersCount])
 
 
@@ -75,6 +81,7 @@ const QuestionEditor = () => {
                                 <input
                                     className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
                                     key={i}
+                                    disabled={type == "true-false" ? true : false }
                                     value={answer}
                                     onChange={e => {
                                         updateAnswer(e.target.value, i)
