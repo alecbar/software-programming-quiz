@@ -25,7 +25,7 @@ export default function Profile() {
         }
 
         <div className="my-20 text-center ">
-          <a href="new_quiz" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
+          <a href="quiz_invite" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
         </div>
 
         <h2 className="grid text-center text-2xl text-indigo-900">Your Quizzes</h2>

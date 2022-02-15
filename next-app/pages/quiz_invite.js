@@ -47,12 +47,9 @@ export default function Invite() {
                   <p className="text-indigo-500">Your request for a quiz has been emailed to your candidate</p>
                 </div>
 
-                <button onClick={() => signIn('cognito', {
-                callbackUrl: `${window.location.origin}/profile`
-              })} className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Sign In</button>
+                <a href="profile" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Locate</a>
               </div>
               :
-
 
               <form onSubmit={submit} className="my-6 grid grid-rows-6 text-center h-96">
                 <div className="my-2">
