@@ -2,6 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import { v4 as uuid } from 'uuid'
+import { getSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 export default function Invite() {
   const [canFirstName, setCanFirstName] = useState('');
@@ -9,7 +12,7 @@ export default function Invite() {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [quizId, setQuizId] = useState('');
-
+  const [emailMsg, setEmailMsg] = React.useState('Upon clicking the link, your quiz will begin.  You will have 30 minutes for the quiz.')
   const [userCreated, setUserCreated] = useState(false);
 
   // TOOD: indicate success/failure to user
@@ -23,6 +26,24 @@ export default function Invite() {
     sendDataToApi({ canFirstName, canLastName, userId, email, quizId })
     setUserCreated(true)
   }
+const createQuiz = () => {
+console.log('create quiz!')
+
+    let temp = quizzes
+    temp.push({
+        quizName: canFirstName,
+        id: uuid()
+    })
+    setQuizzes([...temp])
+}
+
+const handleSelect = (id, canFirstName) => {
+    setSelectedQuiz(canFirstName)
+    setEmailMsg(emailMsg + `<a href="localhost:3000/quiz/${id}">TAKE QUIZ</a>`)
+}
+let data = [
+  {quizId, canFirstName, canLastName}
+]
 
   return (
     <div className="w-full">
@@ -50,6 +71,7 @@ export default function Invite() {
                 <a href="profile" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Locate</a>
               </div>
               :
+
 
               <form onSubmit={submit} className="my-6 grid grid-rows-6 text-center h-96">
                 <div className="my-2">
@@ -92,6 +114,15 @@ export default function Invite() {
                     className="py-2 border-2 rounded-md text-center border-indigo-200 w-64"
                   />
                 </div>
+                 <div>
+
+       {/* <textarea name="message" rows="5" value={emailMsg} />*/}
+
+        <p>Preview Email Message:</p>
+        <div dangerouslySetInnerHTML={{__html: emailMsg}} />
+
+
+        </div>
                 <div className="my-2">
                   <button type="submit" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto w-64">Submit</button>
                 </div>
