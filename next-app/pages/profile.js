@@ -10,7 +10,7 @@ import Multiselect from "multiselect-react-dropdown";
 export default function Profile() {
 
   const { data: session, status } = useSession()
-  const [quiz, setQuiz] = useState(["Python", "DevOps", "Algorithms","Databases","Web Development","Data Structures"]);
+  const [quiz, setQuiz] = useState(["Python", "DevOps", "Algorithms", "Databases", "Web Development", "Data Structures"]);
 
 
 
@@ -30,19 +30,24 @@ export default function Profile() {
           <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome, {session.user.name} </h1>
         }
         <div className="App">
-      <Multiselect
-        isObject={false}
-        onRemove={(event) => {
-          console.log(event);
-        }}
-        onSelect={(event) => {
-          console.log(event);
-        }}
-        options={quiz}
-        selectedValues={["Python"]}
-        showCheckbox
-      />
-    </div>
+          <Multiselect
+            isObject={false}
+            onRemove={(event) => {
+              console.log(event);
+            }}
+            onSelect={(event) => {
+              console.log(event);
+            }}
+            options={quiz}
+            selectedValues={["Python"]}
+            showCheckbox
+          />
+        </div>
+
+        <div className="my-20 text-center ">
+          <a href="new_quiz" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
+        </div>
+
         <div className="my-20 text-center ">
           <a href="quiz_invite" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
         </div>
