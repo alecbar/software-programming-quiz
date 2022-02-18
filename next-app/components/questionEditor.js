@@ -10,6 +10,7 @@ const QuestionEditor = (props) => {
     const [answers, setAnswers] = useState(Array(answersCount).fill(""))
     const [answersAdded, setAnswersAdded] = useState(false)
     const [correctAnswers, setCorrectAnswers] = useState([0])
+    const [error, setError] = useState(false)
 
     const questionTypes = {
         "true-false": "True False",
@@ -79,17 +80,29 @@ const QuestionEditor = (props) => {
 
     const saveQuestion = () => {
 
-        const question = {
-            "type": type,
-            "prompt": prompt,
-            "answers": answers,
-            "correctAnswers": correctAnswers
+
+
+        // Validate question before saving 
+        if(!prompt || !answersAdded){
+            setError(true)
+        }else{
+            setError(false)
+
+            // Question object
+            const question = {
+                "type": type,
+                "prompt": prompt,
+                "answers": answers,
+                "correctAnswers": correctAnswers
+            }
+    
+            saveQuestionHandler(question)
+
+            // Reset question form
+            setPrompt("")
+            setAnswers(Array(answersCount).fill(""))
+            setAnswersAdded(false)
         }
-        
-        console.log(question)
-
-        saveQuestionHandler(question)
-
     };
 
     return (
@@ -149,12 +162,18 @@ const QuestionEditor = (props) => {
                     }
                 </div>
 
-                <div className="p-4">
+                <div className="text-center text-red-500 p-2 h-4">
+                    {error &&
+                        <p>Please enter a question and answers</p>
+                    }
+                </div>
+
+                <div className="p-4 text-center">
                     <button
-                        className="float-right text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
+                        className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
                         onClick={() => saveQuestion()}
                     >
-                        Save
+                        Add
                     </button>
                 </div>
             </div>

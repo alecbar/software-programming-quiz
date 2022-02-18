@@ -8,31 +8,35 @@ export default function NewQuiz() {
 
     const { data: session, status } = useSession()
 
-    // Using as an example for now on how the quiz question UI might work
-    // this should be encompased in its own component 
-    // if each was a question we could pass in a prop to edit or delete after it exists
-    const [displayQuestion, setDisplayQuestion] = useState(false)
-
-
-    // Array of questions in state
     const [questions, setQuestion] = useState([])
+    const [name, setName] = useState("")
+    const [error, setError] = useState(false)
 
-    const saveQuestion = (newQuestion) => {
-        
+    // Add a new question
+    const saveQuestion = (newQuestion) => {    
         const newQuestions = [...questions, newQuestion]
         console.log(newQuestions)
         setQuestion(newQuestions)
     };  
 
-    // Example
-    // {
-    //     "type": "",
-    //     "question": "",
-    //     "answers":[
+    //Save the quix
+    const saveQuiz = () => {
+
+        // Validate data
+        if(questions.length && name){
+            setError(false)
             
-    //     ],
-    //     "correctAnswer": 0
-    // }
+            // Send to API
+            // Redirect ??
+
+            console.log("Saving quiz")
+
+        }else{
+            setError(true)
+
+        }
+
+    }
 
     return (
         <div className="w-full">
@@ -50,7 +54,11 @@ export default function NewQuiz() {
 
                     <div className="m-4 w-2/4 mx-auto">
                         <label className="block text-md">Quiz Name</label>
-                        <input className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block" placeholder="Enter a name..." />
+                        <input 
+                        className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block" 
+                        placeholder="Enter a name..." 
+                        onChange={e => {setName(e.target.value)}}
+                        />
                     </div>
 
                     <div className="m-4 w-2/4 mx-auto">    
@@ -73,6 +81,21 @@ export default function NewQuiz() {
 
                 </div>
 
+                <div className="text-center text-red-500 p-2 h-4">
+                    {error &&
+                        <p>Please a name and questions for to save this quiz</p>
+                    }
+                </div>
+
+                <div className="p-4 text-center">
+                    <button
+                        className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
+                        onClick = {(e) => {saveQuiz()}}
+                    >
+                        Save
+                    </button>
+                </div>
+                
             </main>
         </div>
     )
