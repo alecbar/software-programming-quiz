@@ -4,6 +4,7 @@ import styles from '../styles/Profile.module.css'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { getSession } from 'next-auth/react'
+import Select from "react-select"
 import Multiselect from "multiselect-react-dropdown";
 import Link from 'next/link'
 
@@ -11,9 +12,11 @@ export default function Profile() {
 
   const { data: session, status } = useSession()
   const [quiz, setQuiz] = useState(["Python", "DevOps", "Algorithms", "Databases", "Web Development", "Data Structures"]);
-
-
-
+  const quizzes = [
+    { value: '7bc09d55-aed1-4d02-afcb-e467f7ba78b2', label: 'Python' },
+    { value: 'c4d506b6-88b2-4795-b2ba-937be52bbbbc', label: 'DevOps' },
+    { value: '95fa8211-7b63-4a29-a161-ea912dab64e6', label: 'Algorithms' }
+  ]
 
   return (
     <div className="w-full">
@@ -27,9 +30,24 @@ export default function Profile() {
 
         {
           session &&
-          <h1 className="text-3xl mt-3 text-center text-indigo-900">Welcome, {session.user.name} </h1>
+          <h1 className="text-3xl mt-5 text-center text-indigo-900">Welcome, {session.user.name} </h1>
         }
-        <div className="App">
+
+        <div className="mt-10 text-center ">
+          <h4 className="text-center text-2xl text-indigo-900">Create a New Quiz</h4>
+          
+        </div>
+        <div className="mt-5 text-center ">
+        <Link href="/quiz/new">
+            <a className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
+          </Link>
+        </div>
+        
+        <div className="mt-10 grid grid-rows-2 text-center">
+          <h4 className="text-center text-2xl text-indigo-900">Send Quiz Invitation</h4>
+          <p className="mb-5 text-center">Select Quiz to send to a candidate.</p>
+        </div>
+        <div className="w-1/2 mx-auto py-2 border-2 rounded-md text-center border-indigo-100 block">
           <Multiselect
             isObject={false}
             onRemove={(event) => {
@@ -43,29 +61,29 @@ export default function Profile() {
             showCheckbox
           />
         </div>
-
-        <div className="my-20 text-center ">
-          <Link href="/quiz/new">
-          <a className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
+        <div className="my-5 text-center ">
+        <Link href="/quiz_invite">
+            <a className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Send Invite</a>
           </Link>
         </div>
 
-        <div className="my-20 text-center ">
-          <a href="quiz_invite" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Create Quiz</a>
+        <div className="mt-10 grid grid-rows-2 text-center">
+          <h4 className="text-center text-2xl text-indigo-900">Check Quiz Results</h4>
+          <p className="my-2 text-center">Select a Quiz to see candidate results.</p>
         </div>
-
-        <h2 className="grid text-center text-2xl text-indigo-900">Your Quizzes</h2>
-
-        <div className="mt-3 grid grid-cols-5 justify-center text-center text-md font-light">
-          <p className="my-auto p-2 col-start-2">Quiz 1</p>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Results</a>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Send</a>
-          <p className="my-auto p-2 col-start-2">Quiz 2</p>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Results</a>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Send</a>
-          <p className="my-auto p-2 col-start-2">Quiz 3</p>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Results</a>
-          <a href="#" className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Send</a>
+        <div className="w-1/2 mx-auto py-2 border-2 rounded-md text-center border-indigo-100 block">
+          <Select
+                    onChange={(event) => {
+                      console.log(event);
+                    }}
+                    options={quizzes}
+                    className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
+          </Select>
+        </div>
+        <div className="my-5 text-center ">
+        <Link href="/quiz_invite">
+            <a className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Check Results</a>
+          </Link>
         </div>
 
       </main>
