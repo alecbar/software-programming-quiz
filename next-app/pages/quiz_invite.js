@@ -11,13 +11,16 @@ export default function Invite() {
   const [canLastName, setCanLastName] = useState('');
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
+  const [quizzes, setQuizzes] = useState('');
   const [quizId, setQuizId] = useState('');
   const [emailMsg, setEmailMsg] = React.useState('Upon clicking the link, your quiz will begin.  You will have 30 minutes for the quiz.')
   const [userCreated, setUserCreated] = useState(false);
 
   // TOOD: indicate success/failure to user
   const sendDataToApi = async (data) => {
-    let response = await axios.post('/api/create-user', data)
+    console.log("send data",data)
+    let response = await axios.post('/api/quiz-invite', data)
+    console.log("api response",response)
   }
 
 

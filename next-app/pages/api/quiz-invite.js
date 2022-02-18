@@ -4,10 +4,12 @@ import { Lambda, AWS } from "aws-sdk"
 export default (req, res) => {
 
   // Receive request
+  console.log("======")
   console.log(req.body)
   const { canFirstName, canLastName, email, userId, quizId } = req.body
 
   // Lambda setup
+  // skip this for local testing
   const client = new Lambda()
 
   const payload = {
@@ -18,22 +20,38 @@ export default (req, res) => {
     "quizId": quizId
   };
 
+// skip for local testing
   const lambdaParams = {
-    FunctionName: "invite-user-lambda",
+    FunctionName: "quiz-invite-lambda",
     InvocationType: "Event",
     Payload: JSON.stringify(payload)
   };
 
-  // Invoke function
+
+// instead of lambda - call your custom function
+//sendQuizInvite(payload)
+  // Invoke function - skip for local testing
+  console.log("AAA")
   client.invoke(lambdaParams, (err, data)=>{
 
-    // Callback
-    if(err){
-      console.log(err)
+     // Callback
+     console.log("CCC")
+     if(err){
+      console.log("EEE:" + err)
     }else{
-      console.log(data)
-    }
+      console.log("DDD: " + JSON.stringify(data))
+   }
   })
+  console.log("BBB")
 
   res.status(200).json({ name: 'John Doe' })
 }
+
+// use sequelize or some js mysql framwork to connect to the db and send a query then send a res.status(200).json(data) response
+
+// res.status(200).json({
+//    quizId: the id of the quiz that was just created
+//})
+
+// on the page site.com/quizzes/:uuid
+// get the uuid from url params and query the db to get the quiz
