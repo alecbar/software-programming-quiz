@@ -13,25 +13,34 @@ export default function NewQuiz() {
     const [error, setError] = useState(false)
 
     // Add a new question
-    const saveQuestion = (newQuestion) => {    
+    const saveQuestion = (newQuestion) => {
         const newQuestions = [...questions, newQuestion]
         console.log(newQuestions)
         setQuestion(newQuestions)
-    };  
+    };
 
     //Save the quix
-    const saveQuiz = () => {
+    const saveQuiz = async () => {
 
         // Validate data
-        if(questions.length && name){
+        if (questions.length && name) {
             setError(false)
-            
-            // Send to API
-            // Redirect ??
 
-            console.log("Saving quiz")
+            const res = await fetch("/api/quiz/new",
+                {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(
+                        {
+                            quizName: name,
+                            quizUser: session.user.email,
+                            quizQuestions: questions
+                        })
+                })
 
-        }else{
+            console.log(res)
+
+        } else {
             setError(true)
 
         }
@@ -54,17 +63,17 @@ export default function NewQuiz() {
 
                     <div className="m-4 w-2/4 mx-auto">
                         <label className="block text-md">Quiz Name</label>
-                        <input 
-                        className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block" 
-                        placeholder="Enter a name..." 
-                        onChange={e => {setName(e.target.value)}}
+                        <input
+                            className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block"
+                            placeholder="Enter a name..."
+                            onChange={e => { setName(e.target.value) }}
                         />
                     </div>
 
-                    <div className="m-4 w-2/4 mx-auto">    
+                    <div className="m-4 w-2/4 mx-auto">
                         <h3 className="my-8 text-lg">Add Questions</h3>
 
-                        <QuestionEditor saveQuestionHandler={saveQuestion}/>
+                        <QuestionEditor saveQuestionHandler={saveQuestion} />
 
                     </div>
                 </div>
@@ -90,12 +99,12 @@ export default function NewQuiz() {
                 <div className="p-4 text-center">
                     <button
                         className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
-                        onClick = {(e) => {saveQuiz()}}
+                        onClick={(e) => { saveQuiz() }}
                     >
                         Save
                     </button>
                 </div>
-                
+
             </main>
         </div>
     )
