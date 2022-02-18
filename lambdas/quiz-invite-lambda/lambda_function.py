@@ -7,8 +7,9 @@ def lambda_handler(event, context):
     """
     Creates a quiz invite with provided details from event
     """
+    #return "TEST"
     # Get user properties from event
-    userId, quizId, email = event["userId"], event["quizId"], event["email"],
+    quizId, email = event["quizId"], event["email"],
 
     mydb = mysql.connector.connect(
         host="sd1e7h3lcrgky97.ctnnda3nrolp.us-east-1.rds.amazonaws.com",
@@ -18,16 +19,17 @@ def lambda_handler(event, context):
     )
 
     mycursor = mydb.cursor()
-
-    sql = "INSERT INTO Quiz_Invite ( quiz_id, email) VALUES ( %s, %s)"
-    val = (quizId, email)
+    sql = "INSERT INTO Quiz_Invite (email, quiz_id) VALUES (%s, %s)"
+    val = (email, quizId)
     mycursor.execute(sql, val)
-    #mycursor.execute("INSERT INTO Quiz_Invite ( quiz_id, email) VALUES ( '123', 'test@gmail.com')")
-
     mydb.commit()
 
-    # Setup cognito client
-    # client = boto3.client('cognito-idp')
+    # find all quizzes based on the email
+    sql = "select * from Quiz_Invite where email = %s"
+    val = (email)
+    mycursor.execute(sql, val)
 
-    return mycursor.rowcount
+    # get all records in the quiz_invite table that has the same email entered
+    rows = mycursor.fetchall()
 
+    return json.dump(rows)
