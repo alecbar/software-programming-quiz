@@ -1,12 +1,19 @@
 
-export default (req, res) => {
+import { getSession } from "next-auth/react"
 
-    console.log(req.body)
+export default async (req, res) => {
+  const session = await getSession({ req })
 
-    // Call lambda
+  // Check for sign in and matching user id
+  if (session && session.user.id == req.body.userId) {
 
-    // Send success back 
+    const { quizName, quizQuestions, userId } = req.body 
 
-    res.status(200).json({ status: 'success' })
+    
+
+  } else {
+    // Not Signed in
+    res.status(401)
   }
-  
+  res.end()
+}

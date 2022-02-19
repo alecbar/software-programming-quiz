@@ -32,8 +32,8 @@ export default function NewQuiz() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(
                         {
+                            userId: session.user.id,
                             quizName: name,
-                            quizUser: session.user.id,
                             quizQuestions: questions
                         })
                 })
