@@ -33,7 +33,7 @@ export default function NewQuiz() {
                     body: JSON.stringify(
                         {
                             quizName: name,
-                            quizUser: session.user.email,
+                            quizUser: session.user.id,
                             quizQuestions: questions
                         })
                 })
@@ -109,3 +109,22 @@ export default function NewQuiz() {
         </div>
     )
 }
+
+export async function getServerSideProps(context) {
+    const { res } = context;
+    const session = await getSession(context)
+  
+    if (!session) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/",
+        },
+        props: {},
+      };
+    }
+  
+    return {
+      props: { session }
+    }
+  }
