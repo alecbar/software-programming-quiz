@@ -64,3 +64,8 @@ Resources:
       MasterUsername: admin
       MasterUserPassword: password1
       EngineVersion: 8.0.23
+
+  QuizBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: software-programming-quiz-document-bucket
