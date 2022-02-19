@@ -38,13 +38,13 @@ export default function NewQuiz() {
                         })
                 })
 
+            // Success on res
+
             console.log(res)
 
         } else {
             setError(true)
-
         }
-
     }
 
     return (
