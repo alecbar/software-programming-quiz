@@ -36,7 +36,9 @@ jobs:
       run: |
         cd lambdas/quiz-invite-lambda
         zip ../quiz-invite-lambda.zip lambda_function.py
-        cd ../../
+        cd packages
+        zip -r ../../quiz-invite-lambda.zip .
+        cd ../../../
         cd lambdas/create-user-lambda
         zip ../create-user-lambda.zip lambda_function.py
         cd ../../
