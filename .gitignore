@@ -2,3 +2,4 @@
 .venv
 .babelrc
 node_modules/
+.vscode

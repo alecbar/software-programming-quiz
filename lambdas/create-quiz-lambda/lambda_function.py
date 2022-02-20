@@ -26,21 +26,22 @@ def lambda_handler(event, context):
     uuid = cursor.fetchone()[0]
 
     #Insert values
-    cursor.execute("INSERT INTO Quiz (id, user_id, name) VALUES (%s, %s, %s)", (uuid, user_id, name))
+    try:
+        cursor.execute("INSERT INTO Quiz (id, user_id, name) VALUES (%s, %s, %s)", (uuid, user_id, name))
+        db.commit()
+        success = True
+    except:
+        success = False
 
-    # Save data and close connections
-    db.commit()
+    # Close connections
     cursor.close()
     db.close()
 
-
     # Upload quiz document to s3
     s3_client = boto3.client('s3')
+    s3_client.put_object(Body=json.dumps(quiz_data), Bucket="software-programming-quiz-document-bucket", Key=uuid)
 
-    response = s3_client.put_object(Body=json.dumps(quiz_data), Bucket="software-programming-quiz-document-bucket", Key=uuid)
-
-    return
-
+    return {"success": success}
 
 
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-import boto3
 import json
 import mysql.connector
 
@@ -8,26 +7,39 @@ def lambda_handler(event, context):
     Creates a quiz invite with provided details from event
     """
     # Get user properties from event
-    userId, quizId, email = event["userId"], event["quizId"], event["email"],
+    quizId, userId, email = event["quizId"], event["userId"], event["email"],
 
-    mydb = mysql.connector.connect(
+    # Setup db and cursor
+    db = mysql.connector.connect(
         host="sd1e7h3lcrgky97.ctnnda3nrolp.us-east-1.rds.amazonaws.com",
         user="admin",
         password="password1",
-        database="Software_Quiz"
+        database="software_quiz"
     )
+    cursor = db.cursor()
 
-    mycursor = mydb.cursor()
+    # Insert data
+    try:
+        cursor.execute("INSERT INTO Invite ( quiz_id, user_id, email) VALUES ( %s, %s, %s)", (quizId, userId, email))
+        db.commit()
+        success = True
 
-    sql = "INSERT INTO Quiz_Invite ( quiz_id, email) VALUES ( %s, %s)"
-    val = (quizId, email)
-    mycursor.execute(sql, val)
-    #mycursor.execute("INSERT INTO Quiz_Invite ( quiz_id, email) VALUES ( '123', 'test@gmail.com')")
+    except:
+        success = False
 
-    mydb.commit()
+    # Close connections
+    cursor.close()
+    db.close()
 
-    # Setup cognito client
-    # client = boto3.client('cognito-idp')
+    return {"success": success}
 
-    return mycursor.rowcount
 
+if __name__ == "__main__":
+
+    event = {
+        "quizId": "123",
+        "userId": "abc",
+        "email": "email@email.com"
+    }
+
+    lambda_handler(event, {})

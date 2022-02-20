@@ -1,39 +1,36 @@
+import { Lambda } from "aws-sdk"
+const aws = require("aws-sdk")
 
-import { Lambda, AWS } from "aws-sdk"
-
-export default (req, res) => {
+export default async (req, res) => {
 
   // Receive request
   console.log(req.body)
-  const { canFirstName, canLastName, email, userId, quizId } = req.body
+  const { email, userId, quizId } = req.body
 
   // Lambda setup
-  const client = new Lambda()
+  const client = new Lambda({ region: process.env.NEXT_AWS_REGION, accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID, secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY })
 
   const payload = {
-    "canfirstName": canFirstName,
-    "canlastName": canLastName,
     "email": email,
     "userId": userId,
     "quizId": quizId
   };
 
   const lambdaParams = {
-    FunctionName: "invite-user-lambda",
+    FunctionName: "quiz-invite-lambda",
     InvocationType: "Event",
     Payload: JSON.stringify(payload)
   };
 
   // Invoke function
-  client.invoke(lambdaParams, (err, data)=>{
-
+  client.invoke(lambdaParams, (err, data) => {
     // Callback
-    if(err){
+    if (err) {
       console.log(err)
-    }else{
+    } else {
       console.log(data)
     }
   })
 
-  res.status(200).json({ name: 'John Doe' })
+  res.end()
 }

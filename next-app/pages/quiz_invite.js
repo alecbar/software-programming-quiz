@@ -17,7 +17,7 @@ export default function Invite() {
 
   // TOOD: indicate success/failure to user
   const sendDataToApi = async (data) => {
-    let response = await axios.post('/api/create-user', data)
+    let response = await axios.post('/api/quiz-invite', data)
   }
 
 
