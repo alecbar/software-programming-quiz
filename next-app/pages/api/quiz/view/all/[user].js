@@ -10,7 +10,7 @@ export default (req, res) => {
     const lambdaParams = {
         FunctionName: "get-quizzes-lambda",
         InvocationType: "Event",
-        Payload: JSON.stringify(payload)
+        Payload: JSON.stringify({userId: user})
       };
   
       // Invoke function 
