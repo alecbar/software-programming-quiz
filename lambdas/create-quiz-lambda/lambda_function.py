@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     Creates a new quiz object in documentDB and RDS
     """
 
-    user_id, quiz_data = event[""]
+    user_id, quiz_data = event["userId"], event["quiz"],
 
     # Db connection
     db = mysql.connector.connect(
