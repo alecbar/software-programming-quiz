@@ -42,7 +42,7 @@ jobs:
         cd ../../
         cd lambdas/create-quiz-lambda
         zip ../create-quiz-lambda.zip lambda_function.py
-        cd package
+        cd packages
         zip -r ../create-quiz-lambda.zip .
         cd ../../
 
