@@ -8,6 +8,7 @@ def lambda_handler(event, context):
     """
 
     user_id, quiz_data = event["userId"], event["quiz"],
+    name = quiz_data["name"]
 
     # Db connection
     db = mysql.connector.connect(
@@ -25,7 +26,7 @@ def lambda_handler(event, context):
     uuid = cursor.fetchone()[0]
 
     #Insert values
-    cursor.execute("INSERT INTO Quiz (quiz_id, user_id) VALUES (%s, %s)", (uuid, user_id))
+    cursor.execute("INSERT INTO Quiz (id, user_id, name) VALUES (%s, %s, %s)", (uuid, user_id, name))
 
     # Save data and close connections
     db.commit()

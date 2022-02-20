@@ -1,6 +1,5 @@
-
 import { getSession } from "next-auth/react"
-import { Lambda, AWS } from "aws-sdk"
+import { Lambda } from "aws-sdk"
 
 export default async (req, res) => {
   const session = await getSession({ req })
@@ -16,7 +15,7 @@ export default async (req, res) => {
     const payload = { userId, quiz }
 
     // Lambda setup
-    const client = new Lambda()
+    const client = new Lambda({region: process.env.NEXT_AWS_REGION, accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID, secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY})
 
     const lambdaParams = {
       FunctionName: "create-quiz-lambda",
@@ -29,8 +28,10 @@ export default async (req, res) => {
 
       // Callback
       if (err) {
+        console.log("Error")
         console.log(err)
       } else {
+        console.log("Success")
         console.log(data)
       }
     })

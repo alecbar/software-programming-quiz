@@ -10,5 +10,6 @@ CREATE TABLE Quiz_Invite (
 
 CREATE TABLE Quiz (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
     user_id VARCHAR(36) NOT NULL
 )
