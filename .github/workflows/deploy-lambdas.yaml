@@ -44,7 +44,7 @@ jobs:
         cd lambdas/create-quiz-lambda
         zip ../create-quiz-lambda.zip lambda_function.py
         cd packages
-        zip -r ../create-quiz-lambda.zip .
+        zip -r ../../create-quiz-lambda.zip .
         cd ../../../
 
     - name: Deploy to S3 and update source
