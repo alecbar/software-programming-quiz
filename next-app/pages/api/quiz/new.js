@@ -7,9 +7,10 @@ export default async (req, res) => {
   // Check for sign in and matching user id
   if (session && session.user.id == req.body.userId) {
 
+    console.log(req.body)
+
     const { quizName, quizQuestions, userId } = req.body 
 
-    
 
   } else {
     // Not Signed in

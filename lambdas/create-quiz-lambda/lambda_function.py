@@ -1,4 +1,4 @@
-#import boto3
+import boto3
 import json
 import mysql.connector
 
@@ -6,6 +6,8 @@ def lambda_handler(event, context):
     """
     Creates a new quiz object in documentDB and RDS
     """
+
+    user_id, quiz_data = event[""]
 
     # Db connection
     db = mysql.connector.connect(
@@ -18,9 +20,12 @@ def lambda_handler(event, context):
     # Setup cursor
     cursor = db.cursor()
 
+    # Generate UUID
     cursor.execute("SELECT UUID()")
-    uuid = cursor[0]
-    cursor.execute("INSERT INTO Quiz (id, user_id) VALUES (%s, %s)", (uuid, "1234567",))
+    uuid = cursor.fetchone()[0]
+
+    #Insert values
+    cursor.execute("INSERT INTO Quiz (quiz_id, user_id) VALUES (%s, %s)", (uuid, user_id))
 
     # Save data and close connections
     db.commit()
@@ -28,14 +33,10 @@ def lambda_handler(event, context):
     db.close()
 
 
-    # Upload document to s3
+    # Upload quiz document to s3
+    s3_client = boto3.client('s3')
 
-    #s3_client = boto3.client('s3')
-
-    # file = json.dumps(quiz)
-
-    # response = s3_client.upload_file(file_name, bucket, object_name)
-
+    response = s3_client.put_object(Body=json.dumps(quiz_data), Bucket="software-programming-quiz-document-bucket", Key=uuid)
 
     return
 

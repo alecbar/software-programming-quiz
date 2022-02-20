@@ -9,6 +9,6 @@ CREATE TABLE Quiz_Invite (
 )
 
 CREATE TABLE Quiz (
-    id VARCHAR(36) default (uuid()) NOT NULL PRIMARY KEY,
+    quiz_id VARCHAR(36) NOT NULL PRIMARY KEY,
     user_id VARCHAR(36) NOT NULL
 )
