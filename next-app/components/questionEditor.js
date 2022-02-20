@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 
-const QuestionEditor = () => {
+const QuestionEditor = (props) => {
+
+    const { saveQuestionHandler } = props
 
     const [type, setType] = useState("true-false")
     const [answersCount, setAnswersCount] = useState(2)
-    const [prompt, setPrompt] = useState()
+    const [prompt, setPrompt] = useState("")
     const [answers, setAnswers] = useState(Array(answersCount).fill(""))
-    const [correctAnswer, setCorrectAnswer] = useState()
+    const [answersAdded, setAnswersAdded] = useState(false)
+    const [correctAnswers, setCorrectAnswers] = useState([0])
+    const [error, setError] = useState(false)
 
     const questionTypes = {
         "true-false": "True False",
@@ -14,11 +18,18 @@ const QuestionEditor = () => {
         "multiple-selection": "Multiple Selection"
     }
 
-    const updateAnswer = (answer, i) => {
+    const updateAnswers = (answer, i) => {
         const newAnswers = [...answers]
         newAnswers[i] = answer
         setAnswers(newAnswers)
     }
+
+    const updateCorrectAnswers = (e) => {
+        let answers = Array.from(e.target.selectedOptions, option => option.value);
+
+        setCorrectAnswers(answers.map(str => parseInt(str, 10)))
+    }
+
 
     // When type changes we want to change the number of answers available
     useEffect(() => {
@@ -42,9 +53,57 @@ const QuestionEditor = () => {
     }, [type])
 
     useEffect(() => {
-        setAnswers(Array(answersCount).fill(""))
+        if (type == "true-false") {
+            setAnswers(["True", "False"])
+
+        } else {
+            setAnswers(Array(answersCount).fill(""))
+        }
     }, [answersCount])
 
+
+    useEffect(() => {
+
+        // If there are any empty answers in the answers array
+        // Then answers still need to be added
+        // And we should not show the answer selection
+
+        const emptyAnswers = answers.filter(answer => answer == "")
+
+        if (emptyAnswers.length > 0) {
+            setAnswersAdded(false)
+        } else {
+            setAnswersAdded(true)
+        }
+
+    }, [answers])
+
+    const saveQuestion = () => {
+
+
+
+        // Validate question before saving 
+        if(!prompt || !answersAdded){
+            setError(true)
+        }else{
+            setError(false)
+
+            // Question object
+            const question = {
+                "type": type,
+                "prompt": prompt,
+                "answers": answers,
+                "correctAnswers": correctAnswers
+            }
+    
+            saveQuestionHandler(question)
+
+            // Reset question form
+            setPrompt("")
+            setAnswers(Array(answersCount).fill(""))
+            setAnswersAdded(false)
+        }
+    };
 
     return (
         <>
@@ -75,9 +134,10 @@ const QuestionEditor = () => {
                                 <input
                                     className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
                                     key={i}
+                                    disabled={type == "true-false" ? true : false}
                                     value={answer}
                                     onChange={e => {
-                                        updateAnswer(e.target.value, i)
+                                        updateAnswers(e.target.value, i)
                                     }
                                     }
                                     placeholder="Answer..."
@@ -85,19 +145,36 @@ const QuestionEditor = () => {
                             )
                         })
                     }
-                    <label className="block text-md">Select the correct Answer</label>
-                    <select
-                        onChange={e => { setCorrectAnswer(e.target.value) }}
-                        value={correctAnswer}
-                        className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
-                        {
-                            answers.map((answer, i) => <option key={i} value={i}>{answer}</option>)
-                        }
-                    </select>
+
+                    {answersAdded &&
+                        <>
+                            <label className="block text-md">Select the correct {type == "multiple-selection" ? "answers" : "answer"}</label>
+                            <select
+                                multiple={type == "multiple-selection" ? true : false}
+                                onChange={e => { updateCorrectAnswers(e) }}
+                                value={type == "multiple-selection" ? correctAnswers : correctAnswers[0]}
+                                className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block">
+                                {
+                                    answers.map((answer, i) => <option key={i} value={i}>{answer}</option>)
+                                }
+                            </select>
+                        </>
+                    }
                 </div>
 
-                <div className="p-4">
-                    <button className="float-right text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md">Save</button>
+                <div className="text-center text-red-500 p-2 h-4">
+                    {error &&
+                        <p>Please enter a question and answers</p>
+                    }
+                </div>
+
+                <div className="p-4 text-center">
+                    <button
+                        className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
+                        onClick={() => saveQuestion()}
+                    >
+                        Add
+                    </button>
                 </div>
             </div>
         </>

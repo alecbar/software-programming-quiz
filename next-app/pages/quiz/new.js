@@ -2,29 +2,50 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/react'
 import QuestionEditor from '../../components/questionEditor'
+import QuestionCard from '../../components/questionCard'
 
 export default function NewQuiz() {
 
     const { data: session, status } = useSession()
 
-    // Using as an example for now on how the quiz question UI might work
-    // this should be encompased in its own component 
-    // if each was a question we could pass in a prop to edit or delete after it exists
-    const [displayQuestion, setDisplayQuestion] = useState(false)
-
-
-    // Array of questions in state
     const [questions, setQuestion] = useState([])
+    const [name, setName] = useState("")
+    const [error, setError] = useState(false)
 
-    // Example
-    // {
-    //     "type": "",
-    //     "question": "",
-    //     "answers":[
-            
-    //     ],
-    //     "correctAnswer": 0
-    // }
+    // Add a new question
+    const saveQuestion = (newQuestion) => {
+        const newQuestions = [...questions, newQuestion]
+        console.log(newQuestions)
+        setQuestion(newQuestions)
+    };
+
+    //Save the quix
+    const saveQuiz = async () => {
+
+        // Validate data
+        if (questions.length && name) {
+            setError(false)
+
+            const res = await fetch("/api/quiz/new",
+                {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(
+                        {
+                            userId: session.user.id,
+                            quizName: name,
+                            quizQuestions: questions
+                        })
+                })
+
+            // Success on res
+
+            console.log(res)
+
+        } else {
+            setError(true)
+        }
+    }
 
     return (
         <div className="w-full">
@@ -42,13 +63,17 @@ export default function NewQuiz() {
 
                     <div className="m-4 w-2/4 mx-auto">
                         <label className="block text-md">Quiz Name</label>
-                        <input className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block" placeholder="Enter a name..." />
+                        <input
+                            className="py-2 border-2 rounded-md text-center border-indigo-200 w-full block"
+                            placeholder="Enter a name..."
+                            onChange={e => { setName(e.target.value) }}
+                        />
                     </div>
 
-                    <div className="m-4 w-2/4 mx-auto">    
+                    <div className="m-4 w-2/4 mx-auto">
                         <h3 className="my-8 text-lg">Add Questions</h3>
 
-                        <QuestionEditor/>
+                        <QuestionEditor saveQuestionHandler={saveQuestion} />
 
                     </div>
                 </div>
@@ -57,31 +82,49 @@ export default function NewQuiz() {
                 <div className="grid grid-rows text-center my-12">
                     <h3 className="m-2 text-xl" >Quiz Questions</h3>
 
-                    <div className="h-auto my-2 w-2/4 mx-auto" onClick={()=>{setDisplayQuestion(!displayQuestion)}}>
-                        <div className="h-auto bg-indigo-100 grid grid-cols-8 p-2 gap-1 rounded-t-md">
-                            <div className="col-span-7 text-left">
-                                <h4>Question 1</h4>
-                            </div>
+                    {
+                        questions.map((question, i) => {
+                            return (<QuestionCard question={question} key={i} index={i}></QuestionCard>)
+                        })
+                    }
 
-                            <div className="col-span-1 text-right mx-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
-                        {
-                            displayQuestion &&
-                            
-                            <div className="h-44 rounded-b-md border-2 border-indigo-100">
+                </div>
 
-                            </div>
-                        }
+                <div className="text-center text-red-500 p-2 h-4">
+                    {error &&
+                        <p>Please a name and questions for to save this quiz</p>
+                    }
+                </div>
 
-                    </div>
-
+                <div className="p-4 text-center">
+                    <button
+                        className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md"
+                        onClick={(e) => { saveQuiz() }}
+                    >
+                        Save
+                    </button>
                 </div>
 
             </main>
         </div>
     )
 }
+
+export async function getServerSideProps(context) {
+    const { res } = context;
+    const session = await getSession(context)
+  
+    if (!session) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/",
+        },
+        props: {},
+      };
+    }
+  
+    return {
+      props: { session }
+    }
+  }

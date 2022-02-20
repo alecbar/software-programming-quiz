@@ -9,6 +9,12 @@ export default NextAuth({
             issuer: process.env.COGNITO_ISSUER,
         })
     ],
-    debug: process.env.VERCEL_ENV ? false: true,
-    secret: process.env.NEXTAUTH_SECRET
+    debug: process.env.VERCEL_ENV ? false : true,
+    secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        async session({ session, user, token }) {
+            session.user.id = token.sub
+            return session
+        },
+    }
 })
