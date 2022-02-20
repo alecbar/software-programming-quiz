@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSession, getSession } from 'next-auth/react'
 import QuestionEditor from '../../components/questionEditor'
 import QuestionCard from '../../components/questionCard'
+import Router from 'next/router'
 
 export default function NewQuiz() {
 
@@ -38,9 +39,13 @@ export default function NewQuiz() {
                         })
                 })
 
+            
+
             // Success on res
 
-            console.log(res)
+            if(res.ok){
+                Router.push("/profile")
+            }
 
         } else {
             setError(true)
