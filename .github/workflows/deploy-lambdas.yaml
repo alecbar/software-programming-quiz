@@ -65,3 +65,4 @@ jobs:
         aws s3 cp lambdas/create-quiz-lambda.zip s3://software-programming-quiz-lambda-bucket
         aws lambda update-function-code --function-name create-quiz-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key create-quiz-lambda.zip
         aws s3 cp lambdas/get-quizzes-lambda.zip s3://software-programming-quiz-lambda-bucket
+        aws lambda update-function-code --function-name get-quizzes-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key get-quizzes-lambda.zip
