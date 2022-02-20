@@ -44,7 +44,7 @@ jobs:
         zip ../create-quiz-lambda.zip lambda_function.py
         cd packages
         zip -r ../create-quiz-lambda.zip .
-        cd ../../
+        cd ../../../
 
     - name: Deploy to S3 and update source
       run: |
@@ -53,3 +53,4 @@ jobs:
         aws s3 cp lambdas/create-user-lambda.zip s3://software-programming-quiz-lambda-bucket
         aws lambda update-function-code --function-name create-user-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key create-user-lambda.zip
         aws s3 cp lambdas/create-quiz-lambda.zip s3://software-programming-quiz-lambda-bucket
+        aws lambda update-function-code --function-name create-quiz-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key create-quiz-lambda.zip
