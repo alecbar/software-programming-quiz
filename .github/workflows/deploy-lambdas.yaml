@@ -28,6 +28,10 @@ jobs:
         python-version: '3.8.9' 
 
     - name: Install Python requirements
+      run: |
+        cd lambdas/create-quiz-lambda
+        python -m pip install -r requirements.txt --target /packages
+        ls
 
     - name: Zip files
       run: |
@@ -36,6 +40,10 @@ jobs:
         cd ../../
         cd lambdas/create-user-lambda
         zip ../create-user-lambda.zip lambda_function.py
+        cd ../../
+        cd lambdas/create-quiz-lambda
+        zip ../create-quiz-lambda.zip lambda_function.py
+        cd ../../
 
     - name: Deploy to S3 and update source
       run: |
