@@ -12,21 +12,23 @@ export default (req, res) => {
         InvocationType: "RequestResponse",
         Payload: JSON.stringify({userId: user})
       };
-  
+      
+    let quizzes = []
+
       // Invoke function 
       client.invoke(lambdaParams, (err, data) => {
   
         // Callback
         if (err) {
-          console.log("Error")
           console.log(err)
         } else {
-          console.log("Success")
-          console.log(data)
+          const json = JSON.parse(data.Payload)
+          quizzes = json.data
+
+          res.json({quizzes})
+          res.status(200)
+          res.end()
         }
       })
-  
-
-    res.status(200).json({ user: user })
   }
   
