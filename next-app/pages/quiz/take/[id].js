@@ -48,7 +48,7 @@ export default function TakeQuiz() {
 
                 <form>
 
-                <div className="my-11 border-2 w-2/4 mx-auto rounded-md">
+                <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
                     <div>
                         <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
                             1. 
@@ -87,7 +87,7 @@ export default function TakeQuiz() {
 
                 </div>
 
-                <div className="my-3 w-2/4 mx-auto">   
+                <div className="my-3 md:w-2/4 w-3/4 mx-auto">   
                     <button className="text-white font-semibold bg-indigo-600 w-28 py-2 px-6 rounded-md">Submit</button>
                 </div>  
 
