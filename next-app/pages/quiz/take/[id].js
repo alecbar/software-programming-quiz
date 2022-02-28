@@ -42,7 +42,7 @@ export default function TakeQuiz() {
 
 
                 <div className="mx-auto p-2 text-center">
-                    <h1 className="text-2xl">Quiz</h1>
+                    <h1 className="text-2xl">Programming Fundamentals</h1>
                     <p className="font-light text-lg">{timerString}</p>
                 </div>
 
@@ -50,8 +50,8 @@ export default function TakeQuiz() {
 
                 <div className="my-11 border-2 w-2/4 mx-auto rounded-md">
                     <div>
-                        <div className="px-4 py-2 border-b-2">
-                            1
+                        <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
+                            1. 
                         </div>
 
                         <div className="px-4 py-2">
