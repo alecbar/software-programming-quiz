@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 
 export default function TakeQuiz() {
@@ -29,8 +30,70 @@ export default function TakeQuiz() {
     }, [timer])
 
     return (
-        <div>
-            <p>{timerString}</p>
+
+        <div className="w-full">
+            <Head>
+                <title>Profile Page</title>
+                <meta name="description" content="Software Programming Quiz" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+
+            <main className="max-w min-h-screen">
+
+
+                <div className="mx-auto p-2 text-center">
+                    <h1 className="text-2xl">Quiz</h1>
+                    <p className="font-light text-lg">{timerString}</p>
+                </div>
+
+                <form>
+
+                <div className="my-11 border-2 w-2/4 mx-auto rounded-md">
+                    <div>
+                        <div className="px-4 py-2 border-b-2">
+                            1
+                        </div>
+
+                        <div className="px-4 py-2">
+                            <fieldset>
+                                <legend className="my-1">
+                                    What is your favorite programming language?
+                                </legend>
+
+                                <div className="my-1">
+                                    <input type="radio"></input>
+                                    <label className="mx-2">Python</label>
+                                </div>
+
+                                <div className="my-1">
+                                    <input type="radio"></input>
+                                    <label className="mx-2">JavaScript</label>
+                                </div>
+
+                                <div className="my-1">
+                                    <input type="radio"></input>
+                                    <label className="mx-2">Rust</label>
+                                </div>
+
+                                <div className="my-1">
+                                    <input type="radio"></input>
+                                    <label className="mx-2">Go</label>
+                                </div>
+                               
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div className="my-3 w-2/4 mx-auto">   
+                    <button className="text-white font-semibold bg-indigo-600 w-28 py-2 px-6 rounded-md">Submit</button>
+                </div>  
+
+                </form>
+
+            </main>
         </div>
     )
 }
