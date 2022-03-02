@@ -5,10 +5,6 @@ export default (req, res) => {
     const { id } = req.query
 
     const data = getQuizData(id)
-    
-    console.log(data)
 
-    res.status(200)
-    res.end()
-    
+    res.status(200).json({"data": data})    
 }
