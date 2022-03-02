@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     quizId = event["quizId"]
 
     # Get quiz data
-    s3 = boto3.resource("s3", aws_access_key_id="AKIASWF5A4FLAUPQKDIB", aws_secret_access_key="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")
+    s3 = boto3.resource("s3")
     obj = s3.Object("software-programming-quiz-document-bucket", quizId)
 
     data = obj.get()['Body'].read().decode('utf-8')
