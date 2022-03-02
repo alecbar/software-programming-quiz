@@ -48,48 +48,116 @@ export default function TakeQuiz() {
 
                 <form>
 
-                <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
-                    <div>
-                        <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
-                            1. 
-                        </div>
-
-                        <div className="px-4 py-2">
+                    <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
+                        <div>
                             <fieldset>
-                                <legend className="my-1">
-                                    What is your favorite programming language?
-                                </legend>
-
-                                <div className="my-1">
-                                    <input type="radio"></input>
-                                    <label className="mx-2">Python</label>
+                                <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
+                                    <legend className="my-1">
+                                        1. What is your favorite programming language?
+                                    </legend>
                                 </div>
 
-                                <div className="my-1">
-                                    <input type="radio"></input>
-                                    <label className="mx-2">JavaScript</label>
-                                </div>
+                                <div className="px-4 py-2">
+                                    <span className="font-light">Multiple Choice</span>
 
-                                <div className="my-1">
-                                    <input type="radio"></input>
-                                    <label className="mx-2">Rust</label>
-                                </div>
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">Python</label>
+                                    </div>
 
-                                <div className="my-1">
-                                    <input type="radio"></input>
-                                    <label className="mx-2">Go</label>
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">JavaScript</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">Rust</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">Go</label>
+                                    </div>
+
                                 </div>
-                               
                             </fieldset>
                         </div>
 
                     </div>
 
-                </div>
+                    <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
+                        <div>
+                            <fieldset>
+                                <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
+                                    <legend className="my-1">
+                                        2. What programming paradigms does Python support?
+                                    </legend>
+                                </div>
 
-                <div className="my-3 md:w-2/4 w-3/4 mx-auto">   
-                    <button className="text-white font-semibold bg-indigo-600 w-28 py-2 px-6 rounded-md">Submit</button>
-                </div>  
+                                <div className="px-4 py-2">
+                                    <span className="font-light">Multiple Selection</span>
+
+                                    <div className="my-1">
+                                        <input type="checkbox"></input>
+                                        <label className="mx-2">Object Orientated Programming</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="checkbox"></input>
+                                        <label className="mx-2">Functional</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="checkbox"></input>
+                                        <label className="mx-2">Logical</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="checkbox"></input>
+                                        <label className="mx-2">Math</label>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+
+                    <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
+                        <div>
+                            <fieldset>
+                                <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
+                                    <legend className="my-1">
+                                        3. Python is a statically typed language
+                                    </legend>
+                                </div>
+
+                                <div className="px-4 py-2">
+                                    <span className="font-light">True False</span>
+
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">True</label>
+                                    </div>
+
+                                    <div className="my-1">
+                                        <input type="radio"></input>
+                                        <label className="mx-2">False</label>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+
+
+                    <div className="my-3 md:w-2/4 w-3/4 mx-auto">
+                        <button className="text-white font-semibold bg-indigo-600 w-28 py-2 px-6 rounded-md">Submit</button>
+                    </div>
 
                 </form>
 
