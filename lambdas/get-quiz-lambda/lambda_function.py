@@ -15,7 +15,7 @@ def lambda_handler(event, context):
 
     data = obj.get()['Body'].read().decode('utf-8')
 
-    return json.dumps(data)
+    return {data}
 
 if __name__ == "__main__":
 
