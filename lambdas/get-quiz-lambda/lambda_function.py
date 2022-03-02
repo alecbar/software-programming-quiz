@@ -15,7 +15,9 @@ def lambda_handler(event, context):
 
     data = obj.get()['Body'].read().decode('utf-8')
 
-    return {data}
+    quiz = json.loads(data)
+
+    return quiz
 
 if __name__ == "__main__":
 
