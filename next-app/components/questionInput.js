@@ -9,7 +9,7 @@ const QuestionInput = (props) => {
     const inputType = type == "multiple-selection" ? "checkbox" : "radio"
 
     // Map or transform question type to formatted string
-    const questionType = questionType
+    const questionType = ""
 
     return (
         <div className="my-11 border-2 md:w-2/4 w-3/4 mx-auto rounded-md">
@@ -17,7 +17,7 @@ const QuestionInput = (props) => {
                 <fieldset>
                     <div className="px-4 py-2 border-b-2 bg-indigo-100 font-bold">
                         <legend className="my-1">
-                            {i}. {prompt}
+                            {index+1}. {prompt}
                         </legend>
                     </div>
 

@@ -11,19 +11,18 @@ const getQuizData = (id) => {
     };
 
     // Invoke function 
-    client.invoke(lambdaParams, (err, data) => {
+    return new Promise((resolve, reject)=> {
+        client.invoke(lambdaParams, (err, data) => {
 
-        // Callback
-        if (err) {
-            console.log(err)
-        } else {
-            const json = JSON.parse(data.Payload)
-            
-            console.log(json)
-
-        }
+            // Callback
+            if (err) {
+                console.log(err)
+                reject(err)
+            } else {
+                resolve(JSON.parse(data.Payload))
+            }
+        })
     })
-
 
 }
 
