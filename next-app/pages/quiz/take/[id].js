@@ -10,7 +10,7 @@ export default function TakeQuiz(props) {
     
 
     // Time in seconds
-    const [timer, setTimer] = useState(5)
+    const [timer, setTimer] = useState(60)
     const [timerString, setTimerString] = useState(new Date(timer * 1000).toISOString().substr(11, 8))
 
     const decreaseTimer = () => {
@@ -38,7 +38,7 @@ export default function TakeQuiz(props) {
 
         <div className="w-full">
             <Head>
-                <title>Profile Page</title>
+                <title>{`Quiz - ${name}`}</title>
                 <meta name="description" content="Software Programming Quiz" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -55,7 +55,7 @@ export default function TakeQuiz(props) {
 
                     {questions.map((question, index)=> {
 
-                        return <QuestionInput index={index} question={question} saveAnswer={()=>{}}></QuestionInput>
+                        return <QuestionInput key={index} index={index} question={question} saveAnswer={()=>{}}></QuestionInput>
                     })}
 
                     <div className="my-3 md:w-2/4 w-3/4 mx-auto">
