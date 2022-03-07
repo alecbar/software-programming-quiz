@@ -2,15 +2,25 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { getQuizData } from '../../../utils/quiz.js'
 import QuestionInput from '../../../components/questionInput'
+import Router from 'next/router'
 
 export default function TakeQuiz(props) {
 
     const { quizData } = props
     const { questions, name } = quizData
-    
+
+    const [selectedAnswers, setSelectedAnswers ] = useState(questions.map((_)=> []))
+
+    useEffect(()=>{
+        console.log(selectedAnswers)
+    }, [selectedAnswers])
+
+    const updateSelectedAnswers = (index, newAnswers) => {
+        setSelectedAnswers(selectedAnswers.map((oldAnswers, i)=> i == index ? newAnswers : oldAnswers))
+    }
 
     // Time in seconds
-    const [timer, setTimer] = useState(60)
+    const [timer, setTimer] = useState(10)
     const [timerString, setTimerString] = useState(new Date(timer * 1000).toISOString().substr(11, 8))
 
     const decreaseTimer = () => {
@@ -25,6 +35,10 @@ export default function TakeQuiz(props) {
             // Retain ID so we can cancel the itnerval and only decrease 1 time
             const intervalId = setInterval(decreaseTimer, 1000)
             return () => clearInterval(intervalId)
+        }else{
+            // time is up so we can redirect to a completed page
+            //Router.push("/")
+
         }
 
     }, [timer])
@@ -55,7 +69,7 @@ export default function TakeQuiz(props) {
 
                     {questions.map((question, index)=> {
 
-                        return <QuestionInput key={index} index={index} question={question} saveAnswer={()=>{}}></QuestionInput>
+                        return <QuestionInput key={index} index={index} question={question} saveAnswer={updateSelectedAnswers}></QuestionInput>
                     })}
 
                     <div className="my-3 md:w-2/4 w-3/4 mx-auto">

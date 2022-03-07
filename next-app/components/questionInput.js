@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 
 const QuestionInput = (props) => {
 
-
     const { index, question, saveAnswer } = props
     const { prompt, type, answers } = question
     const inputType = type == "multiple-selection" ? "checkbox" : "radio"
@@ -10,7 +9,7 @@ const QuestionInput = (props) => {
     const [selectedAnswers, setSelectedAnswers] = useState(answers.map(answer => false))
 
     useEffect(()=>{
-        console.log(selectedAnswers)
+        saveAnswer(index, selectedAnswers)
     }, [selectedAnswers])
 
     const handleChange = (e) => {
