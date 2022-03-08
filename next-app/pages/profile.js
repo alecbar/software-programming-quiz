@@ -81,7 +81,7 @@ export default function Profile() {
           </Select>
         </div>
         <div className="my-5 text-center ">
-        <Link href="/quiz_invite">
+        <Link href="/results">
             <a className="text-white font-semibold bg-indigo-600 w-28 m-2 py-2 px-6 rounded-md mx-auto">Check Results</a>
           </Link>
         </div>
