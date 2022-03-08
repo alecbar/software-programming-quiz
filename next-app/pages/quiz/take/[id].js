@@ -47,6 +47,11 @@ export default function TakeQuiz(props) {
         setTimerString(new Date(timer * 1000).toISOString().substr(11, 8))
     }, [timer])
 
+    const submitQuiz = (e) => {
+        e.preventDefault()
+        Router.push("/quiz/complete")
+    }
+
     return (
 
         <div className="w-full">
@@ -64,7 +69,7 @@ export default function TakeQuiz(props) {
                     <p className="font-light text-lg">{timerString}</p>
                 </div>
 
-                <form>
+                <form onSubmit={submitQuiz}>
 
                     {questions.map((question, index)=> {
 
