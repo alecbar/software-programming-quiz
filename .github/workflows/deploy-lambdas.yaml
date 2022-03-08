@@ -3,8 +3,6 @@ name: Deploy Lambdas
 
 on:
   push:
-    branches:
-    - main
 
   workflow_dispatch:
 
@@ -58,6 +56,11 @@ jobs:
         cd packages
         zip -r ../../get-quizzes-lambda.zip .
         cd ../../../
+        cd lambdas/get-quiz-lambda
+        zip ../get-quiz-lambda.zip lambda_function.py
+        cd packages
+        zip -r ../../get-quiz-lambda.zip .
+        cd ../../../
 
     - name: Deploy to S3 and update source
       run: |
@@ -69,3 +72,6 @@ jobs:
         aws lambda update-function-code --function-name create-quiz-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key create-quiz-lambda.zip
         aws s3 cp lambdas/get-quizzes-lambda.zip s3://software-programming-quiz-lambda-bucket
         aws lambda update-function-code --function-name get-quizzes-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key get-quizzes-lambda.zip
+
+        aws s3 cp lambdas/get-quiz-lambda.zip s3://software-programming-quiz-lambda-bucket
+        aws lambda update-function-code --function-name get-quiz-lambda --s3-bucket software-programming-quiz-lambda-bucket --s3-key get-quiz-lambda.zip
