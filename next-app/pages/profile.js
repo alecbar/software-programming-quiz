@@ -62,7 +62,7 @@ export default function Profile() {
             <label className="block text-md my-2">Email</label>
             <input
               className="py-2 border-2 my-2 rounded-md text-center border-indigo-200 w-full block"
-              placeholder="Question..."
+              placeholder="Email"
             />
 
             <label className="block text-md my-2">Invite Link</label>   
