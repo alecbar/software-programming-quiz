@@ -20,7 +20,7 @@ export default function TakeQuiz(props) {
     }
 
     // Time in seconds
-    const [timer, setTimer] = useState(10)
+    const [timer, setTimer] = useState(30)
     const [timerString, setTimerString] = useState(new Date(timer * 1000).toISOString().substr(11, 8))
 
     const decreaseTimer = () => {
@@ -37,8 +37,7 @@ export default function TakeQuiz(props) {
             return () => clearInterval(intervalId)
         }else{
             // time is up so we can redirect to a completed page
-            //Router.push("/")
-
+            Router.push("/quiz/complete")
         }
 
     }, [timer])
